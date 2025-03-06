@@ -5,7 +5,8 @@ O Gocase Buddy é um chatbot desenvolvido para otimizar a comunicação com infl
 
 ### Tecnologias utilizadas:
 
-### Resumo:
+### Arquitetura do projeto
+![arquitetura-base](./assets/logo.png) 
 
 ## 📞 Contato
 
