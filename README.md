@@ -179,6 +179,12 @@ Saída:
 }
 ```
 ## Utilização do Chatbot com Telegram
+
+<img src="./assets/imagem1.jpg" alt="Imagem 1" width="300px">
+<img src="./assets/imagem2.jpg" alt="Imagem 2" width="300px">
+<img src="./assets/imagem3.jpg" alt="Imagem 3" width="300px">
+
+
  
 ## 📞 Contato
 
