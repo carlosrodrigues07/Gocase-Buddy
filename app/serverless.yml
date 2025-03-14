@@ -1,0 +1,52 @@
+service: Gocase
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+  environment:
+    TELEGRAM_TOKEN: ${env:TELEGRAM_TOKEN, 'default-telegram-token'}
+    BUCKET_NAME: ${env:BUCKET_NAME, 'default-bucket-name'}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:GetObject
+            - s3:DeleteObject
+          Resource: arn:aws:s3:::${self:provider.environment.BUCKET_NAME}/*
+        - Effect: Allow
+          Action:
+            - rekognition:DetectText
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - polly:SynthesizeSpeech
+          Resource: "*"
+
+functions:
+  telegramWebhook:
+    handler: handler.lambda_handler
+    timeout: 30
+    events:
+      - httpApi:
+          path: /telegram-webhook
+          method: post
+
+resources:
+  Resources:
+    S3BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: ${self:provider.environment.BUCKET_NAME}
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal: "*"
+              Action: "s3:GetObject"
+              Resource: !Sub "arn:aws:s3:::${self:provider.environment.BUCKET_NAME}/*" # Acesso público para leitura
+plugins:
+  - serverless-python-requirements
+  - serverless-offline
