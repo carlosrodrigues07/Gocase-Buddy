@@ -68,8 +68,7 @@ def processar_mensagem_texto(chat_id, texto):
         session_id=chat_id,
         text=texto,
     )
-    fluxo_audio = handle_intent_response(chat_id, resposta_lex)
-    send_audio(chat_id, fluxo_audio)
+    handle_intent_response(chat_id, resposta_lex)
 
 
 def processar_mensagem_imagem(chat_id, file_id):
